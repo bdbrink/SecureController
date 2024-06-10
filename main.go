@@ -22,7 +22,7 @@ func main() {
     flag.Parse()
 
     // Build the config from the kubeconfig file
-    config, err = clientcmd.BuildConfigFromFlags("", *kubeconfig)
+    config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
     if err != nil {
         panic(err.Error())
     }
