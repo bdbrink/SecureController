@@ -41,10 +41,26 @@ func main() {
 
     // Print the admission controllers
     fmt.Println("Validating Webhook Configurations:")
-    for _, webhook := range admissionControllers.Items {
-        fmt.Printf("- Name: %s\n", webhook.Name)
-        for _, rule := range webhook.Webhooks {
-            fmt.Printf("  Webhook: %s\n", rule.Name)
+    for _, webhookConfig := range admissionControllers.Items {
+        fmt.Printf("- Name: %s\n", webhookConfig.Name)
+        for _, webhook := range webhookConfig.Webhooks {
+            fmt.Printf("  Webhook: %s\n", webhook.Name)
+            fmt.Printf("    Client Config: %v\n", webhook.ClientConfig)
+            fmt.Printf("    Admission Review Versions: %v\n", webhook.AdmissionReviewVersions)
+            fmt.Printf("    Rules:\n")
+            for _, rule := range webhook.Rules {
+                fmt.Printf("      Operations: %v\n", rule.Operations)
+                fmt.Printf("      APIGroups: %v\n", rule.APIGroups)
+                fmt.Printf("      APIVersions: %v\n", rule.APIVersions)
+                fmt.Printf("      Resources: %v\n", rule.Resources)
+                fmt.Printf("      Scope: %v\n", rule.Scope)
+            }
+            fmt.Printf("    Failure Policy: %v\n", webhook.FailurePolicy)
+            fmt.Printf("    Match Policy: %v\n", webhook.MatchPolicy)
+            fmt.Printf("    Namespace Selector: %v\n", webhook.NamespaceSelector)
+            fmt.Printf("    Object Selector: %v\n", webhook.ObjectSelector)
+            fmt.Printf("    Side Effects: %v\n", webhook.SideEffects)
+            fmt.Printf("    Timeout Seconds: %v\n", webhook.TimeoutSeconds)
         }
     }
 }
